@@ -1,5 +1,7 @@
 import ipywidgets as widgets
 from IPython.display import display, Javascript
+import numpy as np
+import matplotlib.pyplot as plt
 from .port import Port
 
 def openSerialPort(auto_open=False, default_port=None):
@@ -100,3 +102,9 @@ def registerWriter(machine):
     button.on_click(on_write)
     
     display(layout)
+    
+def plot(data):
+    x = np.linspace(start=0, stop=len(data), num=len(data))
+    y = data
+    plt.plot(x, y)
+    plt.show()
