@@ -1,4 +1,5 @@
-
+import numpy as np
+import scipy.stats as stats
 
 class Machine:
     def __init__(self):
@@ -27,6 +28,16 @@ class Machine:
             return ""
     
     def write_register(self, register, value):
+        if register == 200:
+            mu = 0
+            std = value
+            x = np.linspace(start=-4, stop=4, num=100)
+            y = stats.norm.pdf(x, mu, std)
+            
+            for i in range(0, 100):
+                print(201+i, y[i]*1000)
+                self.registers[201+i] = y[i]*1000
+        
         self.registers[register] = value;
         return 0
         
