@@ -5,6 +5,8 @@ machine = Machine()
 class Port:
     def __init__(self):
         self.is_open = False
+        self.on_read = None
+        self.on_write = None
     
     def open(self):
         self.is_open = True
@@ -17,8 +19,13 @@ class Port:
         if not self.is_open:
             raise RuntimeError("Port not open")
         machine.write(data)
+        if self.on_write:
+            self.on_write(data)
     
     def readln(self):
         if not self.is_open:
             raise RuntimeError("Port not open")
-        return machine.read()
+        data = machine.read()
+        if self.on_read:
+            self.on_read(data)
+        return data

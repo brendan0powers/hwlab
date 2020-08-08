@@ -1,5 +1,6 @@
 import ipywidgets as widgets
 from IPython.display import display, Javascript
+from IPython.core.display import HTML
 import numpy as np
 import matplotlib.pyplot as plt
 from .port import Port
@@ -108,3 +109,25 @@ def plot(data):
     y = data
     plt.plot(x, y)
     plt.show()
+    
+def serialMonitor(port):
+    out = widgets.Output()
+    button = widgets.Button(description="Clear Log")
+    
+    def on_clear(b):
+        out.clear_output()
+    
+    def on_read(data):
+        with out:
+            display(HTML(f"<span style='color:green'><b><<<</b>&nbsp&nbsp {data}</span>"))
+            
+    def on_write(data):
+        with out:
+            display(HTML(f"<span style='color:red'><b>>>></b>&nbsp&nbsp {data}</span>"))
+    
+    button.on_click(on_clear)
+    port.on_read = on_read
+    port.on_write = on_write
+    
+    display(button)
+    display(out)
