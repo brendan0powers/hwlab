@@ -35,7 +35,6 @@ class Machine:
             y = stats.norm.pdf(x, mu, std)
             
             for i in range(0, 100):
-                print(201+i, y[i]*1000)
                 self.registers[201+i] = y[i]*1000
         
         self.registers[register] = value;

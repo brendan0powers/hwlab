@@ -1,4 +1,5 @@
 from .machine import Machine
+import time
 
 machine = Machine()
 
@@ -19,6 +20,7 @@ class Port:
         if not self.is_open:
             raise RuntimeError("Port not open")
         machine.write(data)
+        time.sleep(0)
         if self.on_write:
             self.on_write(data)
     
@@ -26,6 +28,7 @@ class Port:
         if not self.is_open:
             raise RuntimeError("Port not open")
         data = machine.read()
+        time.sleep(0)
         if self.on_read:
             self.on_read(data)
         return data

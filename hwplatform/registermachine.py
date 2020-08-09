@@ -1,4 +1,3 @@
-
 class RegisterMachine:
     def __init__(self, readFn, writeFn):
         self.readFn = readFn

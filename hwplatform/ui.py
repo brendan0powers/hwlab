@@ -118,12 +118,12 @@ def serialMonitor(port):
         out.clear_output()
     
     def on_read(data):
-        with out:
-            display(HTML(f"<span style='color:green'><b><<<</b>&nbsp&nbsp {data}</span>"))
+        out.append_display_data(HTML(f"<span style='color:green'><b><<<</b>&nbsp&nbsp {data}</span>"))
+        #out.append_stdout(f"<span style='color:green'><b><<<</b>&nbsp&nbsp {data}</span>")
             
     def on_write(data):
-        with out:
-            display(HTML(f"<span style='color:red'><b>>>></b>&nbsp&nbsp {data}</span>"))
+        out.append_display_data(HTML(f"<span style='color:red'><b>>>></b>&nbsp&nbsp {data}</span>"))
+        #out.append_stdout(f"<span style='color:red'><b>>>></b>&nbsp&nbsp {data}</span>")
     
     button.on_click(on_clear)
     port.on_read = on_read
