@@ -53,12 +53,86 @@ print(machine.readBytes(2, 8, auto_increment=True))
 
 ## UI Helpers
 
-### openSerialPort(name=None, auto_open=False)
+### openSerialPort(default_port=None, auto_open=False): Port
+Displays a serial port widget allowing the user to select from the available ports.
+A Port object is returned.
+
+#### Arguments
+* `default_port: string`: Selects the specified port
+* `auto_open: bool`: Returns an opened port object. Uses the first available port if `default_port` is not specified.
+
+#### Return Value
+Returns a Port object.
+
+#### Example
+
+```python
+# Show the widget with no options
+port = openSerialPort()
+
+# Show the widget, but also open COM3
+port = openSerialPort(default_port="COM3", auto_open=True)
+```
 
 ### registerReader(register_machine)
+Creates a widget that let's the user read registers
+
+#### Arguments
+* `register_machine: RegisterMachine`: A RegisterMachine instance to use for reading registers
+
+#### Return Value
+None
+
+#### Example
+
+```python
+machine = RegisterMachine(readFn, writeFn)
+registerReader(machine)
+```
 
 ### registerWriter(register_machine)
+Creates a widget that let's the user write registers
+
+#### Arguments
+* `register_machine: RegisterMachine`: A RegisterMachine instance to use for writing registers
+
+#### Return Value
+None
+
+#### Example
+
+```python
+machine = RegisterMachine(readFn, writeFn)
+registerWriter(machine)
+```
 
 ### plot(data)
+Takes an array of numbers, and draws a graph with them.
+
+#### Arguments
+* `data: [numbers]`: An array of numbers to plot
+
+#### Return Value
+None
+
+#### Example
+
+```python
+plot([1, 2, 3, 4])
+```
 
 ### serialMonitor(port)
+Displays any data read or written from a Port object.
+
+#### Arguments
+* `port: Port`: a Port object to monitor
+
+#### Return Value
+None
+
+#### Example
+
+```python
+port = openSerialPort()
+serialMonitor(port)
+```
